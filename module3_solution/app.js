@@ -5,27 +5,32 @@
   angular.module('NarrowItDownApp', [])
       .controller('NarrowItDownController', NarrowItDownController)
       .service('MenuSearchService', MenuSearchService)
-      .directive('foundItems', FoundItemsDirective);
+      .directive('foundItemsDir', FoundItemsDirective);
 
 function FoundItemsDirective() {
-/*  var ddo = {
-    templateUrl: 'foundItems.html',
+  var ddo = {
+    templateUrl: 'foundItemsDir.html',
     scope: {
       items: '<',
-      myTitle: '@title',
-      badRemove: '=',
       onRemove: '&'
     },
     controller: FoundItemsDirectiveController,
-    controllerAs: 'foundItems',
+    controllerAs: 'list',
     bindToController: true
   };
 
-  return ddo;*/
+  return ddo;
 }
 
 function FoundItemsDirectiveController() {
   var foundItems = this;
+
+  foundItems.nothingFound = function() {
+    if (foundItems.items && !foundItems.items.length) {
+      return true;
+    }
+    return false;
+  }
 
 }
 
@@ -33,9 +38,12 @@ NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
   var narrowCtrl = this;
   narrowCtrl.searchTerm = function () {
+    narrowCtrl.found = [];
     if (narrowCtrl.search) {
-      narrowCtrl.found = MenuSearchService.getMatchedMenuItems(narrowCtrl.search);
-      console.log(narrowCtrl.found);
+      MenuSearchService.getMatchedMenuItems(narrowCtrl.search).then(function(result) {
+        narrowCtrl.found = result;
+      });
+/*      console.log(narrowCtrl.found);*/
     }
   }
 
@@ -52,7 +60,7 @@ function NarrowItDownController(MenuSearchService) {
 MenuSearchService.$inject = ['$http'];
 function MenuSearchService($http) {
   var service=this;
-  service.foundItems = [];
+ /* service.foundItems = [];*/
 
   /*
 
@@ -84,6 +92,10 @@ function MenuSearchService($http) {
     return itemsToBuy;
   }*/
 
+  service.removeItem = function (itemIndex) {
+    service.foundItems.splice(itemIndex, 1);
+  };
+
 
   service.getMatchedMenuItems = function (searchTerm) {
     return $http({
@@ -93,6 +105,7 @@ function MenuSearchService($http) {
       .then(function (result) {
         /*var foundItems = result.data.menu_items;*/
         /*console.log(foundItems);*/
+        service.foundItems = [];
 
     for (var i = 0; i < result.data.menu_items.length; i++) {
       var description = result.data.menu_items[i].description;
@@ -104,8 +117,8 @@ service.foundItems.push(result.data.menu_items[i]);
     
       }
     }
-console.log(service.foundItems);
-console.log(service.foundItems[5]);
+/*console.log(service.foundItems);
+console.log(service.foundItems[5]);*/
     return service.foundItems;
 
 
