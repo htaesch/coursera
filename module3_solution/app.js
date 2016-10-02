@@ -4,20 +4,45 @@
 
   angular.module('NarrowItDownApp', [])
       .controller('NarrowItDownController', NarrowItDownController)
-      .service('MenuSearchService', MenuSearchService);
+      .service('MenuSearchService', MenuSearchService)
+      .directive('foundItems', FoundItemsDirective);
 
-  NarrowItDownController.$inject = ['MenuSearchService'];
-  function NarrowItDownController(MenuSearchService) {
-    var narrowCtrl = this;
-/*    buyCtrl.itemsToBuy = ShoppingListCheckOffService.getItemsToBuy();
+function FoundItemsDirective() {
+/*  var ddo = {
+    templateUrl: 'foundItems.html',
+    scope: {
+      items: '<',
+      myTitle: '@title',
+      badRemove: '=',
+      onRemove: '&'
+    },
+    controller: FoundItemsDirectiveController,
+    controllerAs: 'foundItems',
+    bindToController: true
+  };
 
-    buyCtrl.buyItem = function (index) {
-      ShoppingListCheckOffService.buyItem(index);
-    }*/
+  return ddo;*/
+}
 
-    var found = MenuSearchService.getMatchedMenuItems("truc");
+function FoundItemsDirectiveController() {
+  var foundItems = this;
 
-console.log("go:" + MenuSearchService.getMatchedMenuItems("truc"));
+}
+
+NarrowItDownController.$inject = ['MenuSearchService'];
+function NarrowItDownController(MenuSearchService) {
+  var narrowCtrl = this;
+  narrowCtrl.searchTerm = function () {
+    if (narrowCtrl.search) {
+      narrowCtrl.found = MenuSearchService.getMatchedMenuItems(narrowCtrl.search);
+      console.log(narrowCtrl.found);
+    }
+  }
+
+
+  narrowCtrl.removeItem = function (itemIndex) {
+    MenuSearchService.removeItem(itemIndex);
+  };
 
 
 
@@ -27,6 +52,7 @@ console.log("go:" + MenuSearchService.getMatchedMenuItems("truc"));
 MenuSearchService.$inject = ['$http'];
 function MenuSearchService($http) {
   var service=this;
+  service.foundItems = [];
 
   /*
 
@@ -65,8 +91,29 @@ function MenuSearchService($http) {
       url : "https://davids-restaurant.herokuapp.com/menu_items.json"
       })
       .then(function (result) {
-        var foundItems = result.data;
-        console.log(foundItems);
+        /*var foundItems = result.data.menu_items;*/
+        /*console.log(foundItems);*/
+
+    for (var i = 0; i < result.data.menu_items.length; i++) {
+      var description = result.data.menu_items[i].description;
+      if (description.toLowerCase().indexOf(searchTerm) !== -1) {
+
+
+service.foundItems.push(result.data.menu_items[i]);
+        
+    
+      }
+    }
+console.log(service.foundItems);
+console.log(service.foundItems[5]);
+    return service.foundItems;
+
+
+
+
+
+
+
       })
       .catch(function (error) {
         console.log(error);
