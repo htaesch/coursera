@@ -1,0 +1,7 @@
+Coucou
+<ul>
+  <li ng-repeat="item in mainList.items"
+      ui-sref="mainList.itemDetail({itemId: $index})">
+    {{ item.quantity }} of {{ item.name }}
+  </li>
+</ul>
