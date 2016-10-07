@@ -25,19 +25,20 @@ function MenuDataService($http) {
         console.log(error);
       });
   }
-/*
+
   service.getItemsForCategory = function (categoryShortName) {
     return $http({
       method : "GET",
-      url : "https://davids-restaurant.herokuapp.com/categories.json"
+      url : " https://davids-restaurant.herokuapp.com/menu_items.json?category=" +  categoryShortName
       })
       .then(function (result) {
+        console.log(result.data)
         return result.data;
       })
       .catch(function (error) {
         console.log(error);
       });
-  }*/
+  }
 
 
 };
