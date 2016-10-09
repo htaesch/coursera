@@ -9,8 +9,6 @@ CategoriesController.$inject = ['items'];
 function CategoriesController(items) {
   var categoriesList = this;
   categoriesList.items = items;
-
-  console.log(categoriesList.items);
 }
 
 })();

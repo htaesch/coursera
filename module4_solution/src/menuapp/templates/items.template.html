@@ -1,7 +1,6 @@
-Bravo !!
+<a ui-sref="home">Home</a> &lt; <a ui-sref="categories">Categories</a> &lt; <span>{{categoryDetail.items.category.name}}</span>
 <ul>
   <li ng-repeat="item in categoryDetail.items.menu_items">
-    Name : {{ item.name }}
-    Description : {{item.description}}
+    {{ item.name }} : {{item.description}}
   </li>
 </ul>

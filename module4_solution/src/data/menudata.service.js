@@ -8,11 +8,6 @@ angular.module('data')
 MenuDataService.$inject = ['$http'];
 function MenuDataService($http) {
   var service=this;
-/*  service.removeItem = function (itemIndex) {
-    service.foundItems.splice(itemIndex, 1);
-  };
-*/
-
   service.getAllCategories = function () {
     return $http({
       method : "GET",
@@ -32,7 +27,6 @@ function MenuDataService($http) {
       url : " https://davids-restaurant.herokuapp.com/menu_items.json?category=" +  categoryShortName
       })
       .then(function (result) {
-        console.log(result.data)
         return result.data;
       })
       .catch(function (error) {
