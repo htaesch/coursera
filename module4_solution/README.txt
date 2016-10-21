@@ -1,3 +1,3 @@
-Coursera AngularJS Module 3 Assigment
+Coursera AngularJS Module 4 Assigment
 
 browser-sync start --server --directory --files "**/*"
