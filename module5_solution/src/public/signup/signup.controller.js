@@ -22,7 +22,6 @@ function SignupController(SignupService) {
 
   $ctrl.submit = function () {
     SignupService.setUser($ctrl.user);
-    console.log("fgter");
     $ctrl.infoSaved = true;
   }
 }
