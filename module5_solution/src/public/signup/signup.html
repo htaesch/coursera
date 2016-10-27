@@ -45,19 +45,19 @@
                 </label>
           </div>
           <div class="form-group">
-                <label for="favorite">Favorite dish :</label>
+                <label for="favorite">Favorite Menu Item :</label>
                   <input type="text" id="favorite" name="favorite" class="form-control" placeholder="Favorite dish"
                   ng-model="signupCtrl.user.favorite"
                   ng-blur="!signupCtrl.checkFavorite()"
                   required>
                   <span ng-if="regForm.favorite.$invalid && regForm.favorite.$touched">
-                    Favorite dish can not be empty.
+                    Favorite Menu Item can not be empty.
                   </span>
                   <span ng-if="!regForm.favorite.$invalid && regForm.favorite.$touched && !signupCtrl.validFavorite">
                     No such menu number exists.
                   </span>
                   <span ng-if="signupCtrl.validFavorite">
-                    Favorite dish chosen : {{signupCtrl.user.favoriteItem.name}}
+                    Favorite Menu Item chosen : {{signupCtrl.user.favoriteItem.name}}
                   </span>
           </div>
           <button
@@ -65,9 +65,11 @@
           ng-click="signupCtrl.submit()"
           class="btn btn-default">Submit
           </button>
-          <span ng-if="signupCtrl.infoSaved">
-            Your information has been saved.
-          </span>
+          <div class="form-group">
+            <span ng-if="signupCtrl.infoSaved">
+              Your information has been saved.
+            </span>
+        </div>
         </form>
       </fieldset>
     </div>
