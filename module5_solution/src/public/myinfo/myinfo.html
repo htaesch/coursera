@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-  <span ng-if="!myinfoCtrl.getUser()">
+  <span ng-show="!myinfoCtrl.user">
     Not Signed Up Yet. <a ui-sref="public.signup">Sign up Now!</a>
   </span>
-  <span ng-if="myinfoCtrl.getUser()">
+  <span ng-show="myinfoCtrl.user">
     <fieldset>
     <h1>Registered Information</h1>
     <div class="form-group"><span class="registration">First Name</span> : {{myinfoCtrl.user.firstname}}</div>

@@ -9,6 +9,7 @@ function SignupController(SignupService) {
   var $ctrl = this;
   $ctrl.validFavorite = false;
   $ctrl.infoSaved = false;
+  $ctrl.user = SignupService.getUser();
 
   $ctrl.checkFavorite = function() {
     SignupService.checkFavorite($ctrl.user.favorite).then(function(response) {
@@ -21,6 +22,7 @@ function SignupController(SignupService) {
 
   $ctrl.submit = function () {
     SignupService.setUser($ctrl.user);
+    console.log("fgter");
     $ctrl.infoSaved = true;
   }
 }

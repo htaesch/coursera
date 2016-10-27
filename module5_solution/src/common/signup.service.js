@@ -19,7 +19,7 @@ function SignupService($http, ApiPath) {
   };
 
   service.getUser = function () {
-    return service.user;
+    return angular.copy(service.user);
   }
 }
 })();

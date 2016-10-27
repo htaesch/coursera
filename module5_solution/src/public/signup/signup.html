@@ -61,7 +61,7 @@
                   </span>
           </div>
           <button
-          ng-disabled="regForm.$invalid || !signupCtrl.validFavorite"
+          ng-disabled="regForm.$invalid || (!signupCtrl.validFavorite && !signupCtrl.user)"
           ng-click="signupCtrl.submit()"
           class="btn btn-default">Submit
           </button>
